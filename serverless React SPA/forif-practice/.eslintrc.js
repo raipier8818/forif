@@ -24,6 +24,7 @@ module.exports = {
     ],
     "rules": {
         'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         // "quotes": "double",
     }
 };
