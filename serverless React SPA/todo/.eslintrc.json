@@ -21,7 +21,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "semi":["error", "always"],
+        "semi": "warn",
         "no-unused-vars":"off",
         "@typescript-eslint/explicit-module-boundary-types": "off"
     }
