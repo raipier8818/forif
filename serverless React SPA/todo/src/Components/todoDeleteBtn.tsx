@@ -1,5 +1,4 @@
 import React from "react";
-import { TodoModel } from "../types/TodoModel";
 
 interface TodoDeleteBtnProps{
     id:string,
@@ -19,7 +18,7 @@ class TodoDeleteBtn extends React.Component<TodoDeleteBtnProps>{
     render(){
         return(
             <div className="todoDeleteBtn">
-                <button onClick={() => {this.deleteThis()}}>
+                <button onClick={() => {this.deleteThis();}}>
                     Delete
                 </button>
             </div>

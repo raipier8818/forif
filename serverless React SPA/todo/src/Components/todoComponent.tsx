@@ -1,5 +1,5 @@
 import { Firestore } from '@firebase/firestore';
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import firebase from '../firebase';
 import { TodoModel } from '../types/TodoModel';
 import TodoContainer from './todoContainer';
