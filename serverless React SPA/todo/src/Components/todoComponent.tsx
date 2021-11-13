@@ -1,15 +1,39 @@
 import { Firestore } from '@firebase/firestore';
+import { User } from 'firebase/auth';
 import React, {useEffect, useState} from 'react';
 import firebase from '../firebase';
 import { TodoModel } from '../types/TodoModel';
 import TodoContainer from './todoContainer';
 import TodoCreateBtn from './todoCreateBtn';
+import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
 import "../styles/style.css";
 
 let countTodo = 0;
 
 function TodoComponent() {
   const [state, setState] = useState<{data: TodoModel, id:string}[]>([]);
+  const [loginState, setLogin] = useState<{
+    token: string | null,
+    user: User | null,
+    isLoggedIn : boolean,
+  }>({
+    token: JSON.parse(localStorage.getItem('token') ?? '{}') ?? null,
+    user: JSON.parse(localStorage.getItem('user') ?? '{}') ?? null,
+    isLoggedIn : false,
+  });
+
+  const setAuth = ({ token, user }: {token: string | null, user: User | null}) => {
+    setLogin({
+      token,
+      user,
+      isLoggedIn: user === null ? false : true,
+    });
+
+
+    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('user', JSON.stringify(user));
+  };
 
   const loadData = async (db: Firestore) => {
     const collection = firebase.collection(db, 'todo_collection');
@@ -20,7 +44,6 @@ function TodoComponent() {
         id: doc.id,
       })
     );
-
 
     setState(docs);
   };
@@ -62,6 +85,21 @@ function TodoComponent() {
 
   return (
     <div className="todoComponent">
+      {
+        loginState.isLoggedIn ?
+        <div>
+          <LogoutButton onLogout={
+            () => setAuth({
+              token: null,
+              user: null,
+            })
+          }/>
+        </div> : 
+        <div>
+          <LoginButton onLogin = {setAuth} />
+        </div>
+      }
+
       {
         state.map((doc, index) => {
           return (

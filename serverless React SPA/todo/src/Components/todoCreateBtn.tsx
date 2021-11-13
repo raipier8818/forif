@@ -7,11 +7,13 @@ interface TodoCreateBtnProps{
 }
 
 function getDate(){
+    
     const today = new Date();
+    
     const year = today.getFullYear().toString().slice(-2);
-    const temp_month = today.getMonth();
+    const temp_month = today.getMonth() + 1;
     const month = temp_month >= 10 ? temp_month.toString() : "0" + temp_month.toString();
-    const temp_day = today.getDay();
+    const temp_day = today.getDate();
     const day = temp_day >= 10 ? temp_day.toString() : "0" + temp_day.toString();
 
     return year + month + day;
